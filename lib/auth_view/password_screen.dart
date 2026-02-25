@@ -70,6 +70,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
               flex: 52,
               child: Container(
                 width: double.infinity,
+
                 color: _bottomBackground,
                 padding: const EdgeInsets.fromLTRB(26, 26, 26, 22),
                 child: SingleChildScrollView(
