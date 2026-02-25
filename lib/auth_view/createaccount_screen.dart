@@ -1,7 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../routes/app_rotes.dart';
+import '../utills/colors_file.dart';
 
 class SignupView extends StatefulWidget {
   const SignupView({super.key});
@@ -14,6 +18,7 @@ class _SignupViewState extends State<SignupView> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPassController = TextEditingController();
   bool _obscurePassword = true;
   bool _accepted = false;
 
@@ -40,22 +45,36 @@ class _SignupViewState extends State<SignupView> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 8),
+            SizedBox(height: 30),
             Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                TextButton.icon(
-                  onPressed: () => Get.back(),
-                  style: TextButton.styleFrom(
-                    padding: EdgeInsets.zero,
-                    foregroundColor: const Color(0xFF2863C8),
-                  ),
-                  icon: const Icon(Icons.chevron_left, size: 24),
-                  label: const Text(
-                    'Back',
-                    style: TextStyle(fontSize: 38, fontWeight: FontWeight.w600),
+                InkWell(
+                  onTap: () {
+                    Get.back();
+                  },
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+
+                    children: [
+                      Icon(
+                        CupertinoIcons.back,
+                        color: AppColors.buttonColo,
+                        size: 25,
+                      ),
+                      const Text(
+                        'Back',
+                        style: TextStyle(
+                          color: AppColors.buttonColo,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                const Spacer(),
+                SizedBox(width: 20),
                 RichText(
                   text: const TextSpan(
                     style: TextStyle(
@@ -75,20 +94,19 @@ class _SignupViewState extends State<SignupView> {
                     ],
                   ),
                 ),
-                const Spacer(),
-                const SizedBox(width: 70),
               ],
             ),
-            const SizedBox(height: 330),
+
+            const SizedBox(height: 30),
             const Text(
               'Create Account',
               style: TextStyle(
                 color: _labelText,
-                fontSize: 52,
+                fontSize: 20,
                 fontWeight: FontWeight.w700,
               ),
             ),
-            const SizedBox(height: 26),
+            const SizedBox(height: 8),
             const Text(
               'Name',
               style: TextStyle(
@@ -103,7 +121,7 @@ class _SignupViewState extends State<SignupView> {
               hint: 'e.g. John Doe',
               keyboardType: TextInputType.name,
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 8),
             const Text(
               'Email',
               style: TextStyle(
@@ -118,7 +136,7 @@ class _SignupViewState extends State<SignupView> {
               hint: 'e.g. email@example.com',
               keyboardType: TextInputType.emailAddress,
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 8),
             const Text(
               'Password',
               style: TextStyle(
@@ -130,6 +148,36 @@ class _SignupViewState extends State<SignupView> {
             const SizedBox(height: 8),
             _buildField(
               controller: _passwordController,
+              hint: 'Enter Confirm password',
+              obscure: _obscurePassword,
+              suffix: IconButton(
+                onPressed: () {
+                  setState(() {
+                    _obscurePassword = !_obscurePassword;
+                  });
+                },
+                icon: Icon(
+                  _obscurePassword
+                      ? Icons.visibility_off_outlined
+                      : Icons.visibility_outlined,
+                  color: const Color(0xFF636C77),
+                ),
+              ),
+            ),
+            const SizedBox(height: 8),
+
+            const Text(
+              ' Confirm Password',
+              style: TextStyle(
+                color: _labelText,
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            const SizedBox(height: 8),
+
+            _buildField(
+              controller: _confirmPassController,
               hint: 'Enter your password',
               obscure: _obscurePassword,
               suffix: IconButton(
@@ -193,9 +241,11 @@ class _SignupViewState extends State<SignupView> {
             const SizedBox(height: 32),
             SizedBox(
               width: double.infinity,
-              height: 68,
+              height: 55,
               child: FilledButton(
-                onPressed: () {},
+                onPressed: () {
+                  Get.toNamed(AppRoutes.otpVerifyScreen);
+                },
                 style: FilledButton.styleFrom(
                   backgroundColor: _primary,
                   foregroundColor: Colors.white,
@@ -250,7 +300,7 @@ class _SignupViewState extends State<SignupView> {
     Widget? suffix,
   }) {
     return SizedBox(
-      height: 68,
+      height: 58,
       child: TextField(
         controller: controller,
         keyboardType: keyboardType,

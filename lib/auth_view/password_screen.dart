@@ -224,7 +224,9 @@ class _PasswordScreenState extends State<PasswordScreen> {
                         width: double.infinity,
                         height: 50,
                         child: FilledButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.toNamed(AppRoutes.signupView);
+                          },
                           style: FilledButton.styleFrom(
                             backgroundColor: _primary,
                             foregroundColor: Colors.white,

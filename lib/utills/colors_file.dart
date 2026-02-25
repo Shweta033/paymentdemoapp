@@ -10,4 +10,5 @@ class AppColors {
   static const Color removeborder = Color(0xFFD9DDE6);
   static const Color border = Color(0xFFD9DDE6);
   static const Color buttonColo = Color(0xFF1D62CA);
+  static const Color dollers = Color(0xFFB83232);
 }
