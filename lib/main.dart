@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       title: 'Payment App',
       debugShowCheckedModeBanner: false,
       // theme: AppTheme.light(),
-      initialRoute: AppRoutes.login,
+      initialRoute: AppRoutes.splashScreen,
       getPages: AppPages.pages,
     );
   }

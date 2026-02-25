@@ -9,4 +9,5 @@ class AppColors {
   static const Color hintText = Color(0xFFB3B8C3);
   static const Color removeborder = Color(0xFFD9DDE6);
   static const Color border = Color(0xFFD9DDE6);
+  static const Color buttonColo = Color(0xFF1D62CA);
 }
