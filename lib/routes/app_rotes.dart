@@ -5,5 +5,10 @@ abstract class AppRoutes {
   static const signupView = '/signupView';
   static const otpVerifyScreen = '/otpVerifyScreen';
   static const dashboardView = '/dashboardView';
+  static const homeScreen = '/homeScreen';
   static const historyView = '/historyView';
+  static const cardsScreen = '/cardsScreen';
+  static const addCardScreen = '/addCardScreen';
+  static const moreScreen = '/moreScreen';
+  static const payBillsScreen = '/payBillsScreen';
 }

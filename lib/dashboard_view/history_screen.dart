@@ -18,43 +18,29 @@ class HistoryView extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 1,
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: const Color(0xFF6B46F2),
-        unselectedItemColor: const Color(0xFF66707D),
-        selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w600),
-        onTap: (index) {
-          if (index == 0) {
-            Get.offNamed(AppRoutes.dashboardView);
-            return;
-          }
-          if (index == 1) return;
-          Get.snackbar(
-            'Coming soon',
-            index == 2
-                ? 'Cards screen not added yet.'
-                : 'More screen not added yet.',
-            snackPosition: SnackPosition.BOTTOM,
-            margin: const EdgeInsets.all(16),
-          );
-        },
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home_filled), label: 'Home'),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.receipt_long),
-            label: 'History',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.credit_card),
-            label: 'Cards',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.folder_copy_outlined),
-            label: 'More',
-          ),
-        ],
-      ),
+      // bottomNavigationBar: BottomNavigationBar(
+      //   currentIndex: 1,
+      //   type: BottomNavigationBarType.fixed,
+      //   selectedItemColor: const Color(0xFF6B46F2),
+      //   unselectedItemColor: const Color(0xFF66707D),
+      //   selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w600),
+      //   onTap: (index) {
+      //     if (index == 0) {
+      //       Get.offNamed(AppRoutes.dashboardView);
+      //       return;
+      //     }
+      //     if (index == 1) return;
+      //     Get.snackbar(
+      //       'Coming soon',
+      //       index == 2
+      //           ? 'Cards screen not added yet.'
+      //           : 'More screen not added yet.',
+      //       snackPosition: SnackPosition.BOTTOM,
+      //       margin: const EdgeInsets.all(16),
+      //     );
+      //   },
+      //
+      // ),
     );
   }
 }
@@ -65,7 +51,7 @@ class _HistoryHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(12, 10, 12, 10),
+      padding: const EdgeInsets.fromLTRB(12, 10, 15, 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -73,7 +59,7 @@ class _HistoryHeader extends StatelessWidget {
             'History',
             style: TextStyle(
               color: Color(0xFF1E2229),
-              fontSize: 25,
+              fontSize: 30,
               fontWeight: FontWeight.w700,
               height: 1,
             ),
@@ -213,12 +199,12 @@ class _HistoryContent extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
+          padding: EdgeInsets.fromLTRB(12, 0, 12, 8),
           child: Text(
             'December 29, 2022',
             style: TextStyle(
               color: Color(0xFF4E5A69),
-              fontSize: 20,
+              fontSize: 23,
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -231,20 +217,6 @@ class _HistoryContent extends StatelessWidget {
               title: 'Amazon',
               subtitle: 'Today 12:32',
               amount: '-\$35.23',
-              amountColor: Color(0xFFD64545),
-            ),
-            _HistoryRowData(
-              icon: _BrandIcon.homeDepot,
-              title: 'The Home Depot',
-              subtitle: 'Dec 24 13:53',
-              amount: '-\$129.00',
-              amountColor: Color(0xFFD64545),
-            ),
-            _HistoryRowData(
-              icon: _BrandIcon.nike,
-              title: 'Nike',
-              subtitle: 'Yesterday 02:12',
-              amount: '-\$50.23',
               amountColor: Color(0xFFD64545),
             ),
           ],
@@ -313,51 +285,218 @@ class _HistoryRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 11),
-      decoration: const BoxDecoration(
-        border: Border(bottom: BorderSide(color: Color(0xFFDDE2E9))),
+    return InkWell(
+      onTap: () => _showTransactionBottomSheet(context),
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 11),
+        decoration: const BoxDecoration(
+          border: Border(bottom: BorderSide(color: Color(0xFFDDE2E9))),
+        ),
+        child: Row(
+          children: [
+            _BrandAvatar(icon: data.icon),
+            const SizedBox(width: 10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    data.title,
+                    style: const TextStyle(
+                      color: Color(0xFF1E2228),
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                      height: 1.1,
+                    ),
+                  ),
+                  const SizedBox(height: 3),
+                  Text(
+                    data.subtitle,
+                    style: const TextStyle(
+                      color: Color(0xFF75808F),
+                      fontSize: 13,
+                      fontWeight: FontWeight.w400,
+                      height: 1,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Text(
+              data.amount,
+              style: TextStyle(
+                color: data.amountColor,
+                fontSize: 13,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            const SizedBox(width: 2),
+            const Icon(Icons.chevron_right, size: 17, color: Color(0xFF687483)),
+          ],
+        ),
       ),
-      child: Row(
-        children: [
-          _BrandAvatar(icon: data.icon),
-          const SizedBox(width: 10),
-          Expanded(
+    );
+  }
+
+  Future<void> _showTransactionBottomSheet(BuildContext context) async {
+    await showModalBottomSheet<void>(
+      context: context,
+      backgroundColor: Colors.white,
+      barrierColor: Colors.black45,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(18)),
+      ),
+      builder: (sheetContext) {
+        return SafeArea(
+          top: false,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(14, 12, 14, 18),
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  data.title,
-                  style: const TextStyle(
-                    color: Color(0xFF1E2228),
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                    height: 1.1,
+                Row(
+                  children: [
+                    _BrandAvatar(icon: data.icon),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            data.title,
+                            style: const TextStyle(
+                              color: Color(0xFF1F2630),
+                              fontSize: 18,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                          const SizedBox(height: 2),
+                          const Text(
+                            'Retailer corporation',
+                            style: TextStyle(
+                              color: Color(0xFF798491),
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () => Navigator.of(sheetContext).pop(),
+                      child: const Text(
+                        'Done',
+                        style: TextStyle(
+                          color: Color(0xFF1D63D6),
+                          fontWeight: FontWeight.w700,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 14),
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFFFF1F1),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  alignment: Alignment.center,
+                  child: Text(
+                    data.amount,
+                    style: const TextStyle(
+                      color: Color(0xFFC13A3A),
+                      fontSize: 40 / 2,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                 ),
-                const SizedBox(height: 3),
-                Text(
-                  data.subtitle,
-                  style: const TextStyle(
-                    color: Color(0xFF75808F),
-                    fontSize: 10,
-                    fontWeight: FontWeight.w400,
-                    height: 1,
+                const SizedBox(height: 12),
+                _detailCard(title: 'Today', value: 'December 29, 2022 - 12:32'),
+                const SizedBox(height: 10),
+                _detailCard(
+                  title: 'Transaction no.',
+                  value: '23010412432431',
+                  trailing: const Icon(
+                    Icons.copy_outlined,
+                    color: Color(0xFF6C7785),
+                    size: 22,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                const Center(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.flag_outlined,
+                        color: Color(0xFFC33F3F),
+                        size: 20,
+                      ),
+                      SizedBox(width: 7),
+                      Text(
+                        'Report a problem',
+                        style: TextStyle(
+                          color: Color(0xFFC33F3F),
+                          fontSize: 17,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
             ),
           ),
-          Text(
-            data.amount,
-            style: TextStyle(
-              color: data.amountColor,
-              fontSize: 11,
-              fontWeight: FontWeight.w500,
+        );
+      },
+    );
+  }
+
+  Widget _detailCard({
+    required String title,
+    required String value,
+    Widget? trailing,
+  }) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.fromLTRB(14, 12, 12, 12),
+      decoration: BoxDecoration(
+        color: const Color(0xFFFDFDFE),
+        border: Border.all(color: const Color(0xFFE2E7EE)),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: const TextStyle(
+                    color: Color(0xFF7A8693),
+                    fontSize: 13,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  value,
+                  style: const TextStyle(
+                    color: Color(0xFF4D5967),
+                    fontSize: 16 / 1.2,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ],
             ),
           ),
-          const SizedBox(width: 2),
-          const Icon(Icons.chevron_right, size: 17, color: Color(0xFF687483)),
+          if (trailing != null) trailing,
         ],
       ),
     );
