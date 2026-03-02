@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:paymentdemoapp/controllers/dashboard_controller.dart';
-import 'package:paymentdemoapp/dashboard_view/cards_screen.dart';
+import 'package:paymentdemoapp/dashboard_view/cards/cards_screen.dart';
 import 'package:paymentdemoapp/dashboard_view/moreModule/more_screen.dart';
 import 'package:paymentdemoapp/utills/colors_file.dart';
-
 import 'history_screen.dart';
 import 'home_screen.dart';
 
@@ -18,7 +16,6 @@ class DashboardView extends StatefulWidget {
 class _DashboardViewState extends State<DashboardView> {
   int _selectedIndex = 0;
 
-  static const Color selectedColor = Color(0xFFF4C430);
   static const Color unselectedColor = Colors.black;
   static final navItems = <BottomNavItem>[
     BottomNavItem(icon: Icons.home_outlined, label: 'Home'),

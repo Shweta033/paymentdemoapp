@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:paymentdemoapp/routes/app_rotes.dart';
 
 class AddCardScreen extends StatelessWidget {
   const AddCardScreen({super.key});
@@ -66,7 +67,9 @@ class AddCardScreen extends StatelessWidget {
                 width: double.infinity,
                 height: 46,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.toNamed(AppRoutes.payBillsScreen);
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF5E38C4),
                     foregroundColor: Colors.white,

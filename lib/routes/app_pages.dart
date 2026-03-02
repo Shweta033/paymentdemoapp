@@ -4,13 +4,18 @@ import '../auth_view/createaccount_screen.dart';
 import '../auth_view/otp_screen.dart';
 import '../auth_view/password_screen.dart';
 import '../auth_view/splah_screen.dart';
-import '../dashboard_view/addcard_screen.dart';
-import '../dashboard_view/cards_screen.dart';
+import '../dashboard_view/cards/addcard_screen.dart';
+import '../dashboard_view/cards/cards_screen.dart';
+import '../dashboard_view/cards/codesubmit_screen.dart';
+import '../dashboard_view/cards/paymentcancel_screen.dart';
+import '../dashboard_view/cards/paymentcode_screen.dart';
+import '../dashboard_view/cards/paymentdone_screen.dart';
+import '../dashboard_view/cards/paymentto_screen.dart';
 import '../dashboard_view/dashboard_screen.dart';
 import '../dashboard_view/history_screen.dart';
 import '../dashboard_view/home_screen.dart';
 import '../dashboard_view/moreModule/more_screen.dart';
-import '../dashboard_view/moreModule/paybills_screen.dart';
+import '../dashboard_view/cards/paybills_screen.dart';
 import 'app_rotes.dart';
 
 class AppPages {
@@ -25,6 +30,15 @@ class AppPages {
     GetPage(name: AppRoutes.cardsScreen, page: () => const CardsScreen()),
     GetPage(name: AppRoutes.addCardScreen, page: () => const AddCardScreen()),
     GetPage(name: AppRoutes.moreScreen, page: () => const MoreScreen()),
+    GetPage(name: AppRoutes.paymentToView, page: () => const PaymentToView()),
+    GetPage(name: AppRoutes.codeSubmitView, page: () => const CodeSubmitView()),
+    GetPage(name: AppRoutes.paymentCodeView, page: () => const PaymentCodeView()),
+    GetPage(name: AppRoutes.paymentCancelView, page: () => const PaymentCancelView()),
+    GetPage(
+      name: AppRoutes.paymentDoneView,
+      page: () =>
+          const PaymentDoneView(billerName: '', amount: '', transactionNo: ''),
+    ),
     GetPage(name: AppRoutes.payBillsScreen, page: () => const PayBillsScreen()),
     GetPage(
       name: AppRoutes.otpVerifyScreen,

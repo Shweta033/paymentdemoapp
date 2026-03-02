@@ -11,4 +11,9 @@ abstract class AppRoutes {
   static const addCardScreen = '/addCardScreen';
   static const moreScreen = '/moreScreen';
   static const payBillsScreen = '/payBillsScreen';
+  static const paymentDoneView = '/paymentDoneView';
+  static const paymentToView = '/paymentToView';
+  static const codeSubmitView = '/codeSubmitView';
+  static const paymentCodeView = '/paymentCodeView';
+  static const paymentCancelView = '/paymentCancelView';
 }

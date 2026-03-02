@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:paymentdemoapp/routes/app_rotes.dart';
 
-class PayBillsScreen extends StatelessWidget {
-  const PayBillsScreen({super.key});
+class PaymentToView extends StatelessWidget {
+  const PaymentToView({super.key});
 
   static const Color _line = Color(0xFFDDE2EA);
 
@@ -41,7 +42,7 @@ class PayBillsScreen extends StatelessWidget {
             ),
             const SizedBox(height: 56),
             const Text(
-              'Pay to',
+              'Transfer to',
               style: TextStyle(
                 color: Color(0xFF1F2329),
                 fontSize: 56 / 2,
@@ -67,7 +68,7 @@ class PayBillsScreen extends StatelessWidget {
                 ),
                 const SizedBox(width: 14),
                 const Text(
-                  'New biller',
+                  'New contact',
                   style: TextStyle(
                     color: Color(0xFF1F2329),
                     fontSize: 20 / 1.2,
@@ -108,7 +109,7 @@ class PayBillsScreen extends StatelessWidget {
                   Icon(Icons.search, size: 34, color: Color(0xFF1F2328)),
                   SizedBox(width: 10),
                   Text(
-                    'Search biller',
+                    'Search contact',
                     style: TextStyle(
                       color: Color(0xFFB4BCC8),
                       fontSize: 36 / 2,
@@ -120,7 +121,7 @@ class PayBillsScreen extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             const Text(
-              'Saved billers',
+              'Frequent contacts',
               style: TextStyle(
                 color: Color(0xFF515D6D),
                 fontSize: 19 / 1.2,
@@ -128,42 +129,37 @@ class PayBillsScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 6),
-            _billerRow(
-              title: 'Electricity',
-              subtitle: 'Due: \$132.32',
-              icon: Icons.tips_and_updates_outlined,
-              iconColor: const Color(0xFF5B39C9),
-              iconBg: const Color(0xFFE2DAFB),
+            _contactRow(name: 'Ali Ahmed', phone: '+1-300-555-0161', emoji: '🤠', bg: const Color(0xFFF5E4C6)),
+            _contactRow(name: 'Steve Gates', phone: '+1-300-555-0119', emoji: '🧔', bg: const Color(0xFFE4A6C6)),
+            _contactRow(name: 'Elon Jobs', phone: '+1-202-555-0171', emoji: '🧑🏽', bg: const Color(0xFFFF5B28)),
+            const SizedBox(height: 10),
+            const Text(
+              'All contacts',
+              style: TextStyle(
+                color: Color(0xFF515D6D),
+                fontSize: 19 / 1.2,
+                fontWeight: FontWeight.w500,
+              ),
             ),
-            _billerRow(
-              title: 'Water',
-              subtitle: 'Due: \$32.21',
-              icon: Icons.water_drop_outlined,
-              iconColor: const Color(0xFF1F67CC),
-              iconBg: const Color(0xFFDCE7F8),
-            ),
-            _billerRow(
-              title: 'Phone',
-              subtitle: 'All paid',
-              icon: Icons.podcasts,
-              iconColor: const Color(0xFF1D9B48),
-              iconBg: const Color(0xFFDCEFE4),
-            ),
+            const SizedBox(height: 6),
+            _contactRow(name: 'Ali Ahmed', phone: '+1-300-555-0161', emoji: '🤠', bg: const Color(0xFFF5E4C6)),
+            _contactRow(name: 'Steve Gates', phone: '+1-300-555-0119', emoji: '🧔', bg: const Color(0xFFE4A6C6)),
           ],
         ),
       ),
     );
   }
 
-  Widget _billerRow({
-    required String title,
-    required String subtitle,
-    required IconData icon,
-    required Color iconColor,
-    required Color iconBg,
+  Widget _contactRow({
+    required String name,
+    required String phone,
+    required String emoji,
+    required Color bg,
   }) {
     return InkWell(
-      onTap: () {},
+      onTap: (){
+        Get.toNamed(AppRoutes.paymentCodeView);
+      },
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 14),
         decoration: const BoxDecoration(
@@ -175,11 +171,11 @@ class PayBillsScreen extends StatelessWidget {
               width: 48,
               height: 48,
               decoration: BoxDecoration(
-                color: iconBg,
-                borderRadius: BorderRadius.circular(13),
+                color: bg,
+                shape: BoxShape.circle,
               ),
               alignment: Alignment.center,
-              child: Icon(icon, color: iconColor, size: 28),
+              child: Text(emoji, style: const TextStyle(fontSize: 26)),
             ),
             const SizedBox(width: 12),
             Expanded(
@@ -187,7 +183,7 @@ class PayBillsScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    title,
+                    name,
                     style: const TextStyle(
                       color: Color(0xFF1F2329),
                       fontWeight: FontWeight.w700,
@@ -196,9 +192,9 @@ class PayBillsScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 2),
                   Text(
-                    subtitle,
+                    phone,
                     style: const TextStyle(
-                      color: Color(0xFF5A6574),
+                      color: Color(0xFF7C8796),
                       fontWeight: FontWeight.w500,
                       fontSize: 20 / 1.2,
                     ),
